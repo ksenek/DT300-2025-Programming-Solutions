@@ -42,11 +42,50 @@ class Quiz:
             radio_button.pack()
             self.radio_buttons.append(radio_button)
 
-        #label for right or wrong answer
+        #frame & label for right or wrong answer
+        self.feedback_frame = Frame(self.root)
+        self.feedback_frame.pack()
+
+        self.feedback_label = Label(self.feedback_frame, text="")
+        self.feedback_label.pack()
 
         #next button
+        self.next_button = Button(self.root, text="Next", command=next_question, state=DISABLED)
+        self.next_button.pack()
+        
+        #automatically display first question when program is opened
+        self.display_question()
 
-        #display the question - function!
+        #display the question - showing the current question to the user
+        def display_question(self):
+            """Display current question with answer options for the user"""
+            question_info = self.questions[self.current_question]
+            self.question_label.config(text=question_info["question"])
+
+            #update and populate radiobuttons with option values
+            self.radio_buttons[0].config(text=question_info["options"][0], value=question_info["options"][0])
+            self.radio_buttons[1].config(text=question_info["options"][1], value=question_info["options"][1])
+            self.radio_buttons[2].config(text=question_info["options"][2], value=question_info["options"][2])
+            self.radio_buttons[3].config(text=question_info["options"][3], value=question_info["options"][3])
+
+            #set first radiobutton as default selection
+            self.selected_option.set(question_info["options"][0])
+
+            #enable next button
+            self.next_button.config(state=NORMAL)
+            
+            
+            def next_question(self):
+                """handle next button click"""
+                selected_answer = self.selected_option.get()
+                correct_answer = self.questions[self.current_question]["answer"]
+
+            #checking if selected answer matches correct answer
+            #update score accordingly
+
+            #move to next question
+            #if there are still questions left then should display next question
+            #if it is last question, it should display final score
             
 
 
