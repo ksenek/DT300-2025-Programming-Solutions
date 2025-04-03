@@ -1,0 +1,12 @@
+class Student:
+  """supporting class for GUI"""
+  
+#store student info in a dictionary
+
+
+class StudentGUI:
+  """Set up and display of info in GUI interface""""
+
+  #entry boxes, labels, buttons etc.
+
+  #structures to carry out functions to get info on students, display selected info and search
