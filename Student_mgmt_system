@@ -1,8 +1,43 @@
-class Student:
-  """supporting class for GUI"""
-  
-#store student info in a dictionary
+from tkinter import *
 
+class Student:
+    """supporting class for GUI"""
+    def __init__(self, name, age, phone_no, enrolled, subjects, gender):
+        """setting up parameters for information for a student"""
+        self.name = name
+        self.age = int(age)
+        self.phone_no = phone_no
+        self.enrolled = enrolled == 'True'
+        self.subjects = subjects.split(',')
+        self.gender = gender
+
+    #def __str__(self):
+        
+    #return f"{self.name}, {self.age}, {self.phone_no}, {'Enrolled' if self.enrolled else 'Not Enrolled'}, {', '.join(self.subjects)}, {self.gender}"
+
+
+    def get_info(self):
+        return{"Name": self.name,
+               "Age": self.age,
+               "Phone": self.phone_no,
+               "Enrolled": "Enrolled" if self.enrolled else "Not Enrolled",
+               "Subjects": self.subjects,
+               "Gender": self.gender
+               }
+
+#dictionary of students and associated info        
+students = {
+    "Serina Boone": Student("Serina Boone", 15, "0225613607", "True", "ENG,GRA,MAT,ART,DTC", "Female"),
+    "Shay Buck": Student("Shay Buck", 16, "0227668033", "True", "BIO,PHY,MAT,DTC,GRA", "Female"),
+    "Roanna Pratt": Student("Roanna Pratt", 18, "0279111750", "True", "ENG,DTC,PHY,ART,MAT", "Female"),
+    "Kirby Holt": Student("Kirby Holt",17,"0223665730","True","DTC,ENG,MAT,ART,BIO","Female"),
+    "Shafira Foster": Student("Shafira Foster",15,"0222550335","True","GRA,ART,ENG,DTC,BIO","Female"),
+    "Brett Alexander": Student("Brett Alexander",14,"0215447599","True","GRA,DTC,PHY,MAT,BIO", "Male"),
+    "Porter Pierce": Student ("Porter Pierce",18, "0222259982", "True","PHY,BIO,DTC,ART,GRA", "Male"),
+    "Hedy Holland": Student ("Hedy Holland",13, "0221264677", "True", "DTC,MAT,PHY,ENG,ART","Female"),
+    "Ralph Bean": Student ("Ralph Bean",18,"0218800806","True","ART,ENG,MAT,DTC,GRA","Male"),
+    "Mercedes Roth": Student("Mercedes Roth",15,"0228887184","True","MAT,DTC,ART,GRA,ENG","Female")
+    }
 
 class StudentGUI:
   """Set up and display of info in GUI interface""""
