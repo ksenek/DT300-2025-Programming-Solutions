@@ -1,9 +1,16 @@
+##
+# student_mgmt_system.py
+# Program that manages students and their information in one system using a GUI
+# SNK
+# April 2025
+
 from tkinter import *
 
 class Student:
-    """supporting class for GUI"""
+    """supporting class for GUI - represents student and their personal & academic details"""
+    
     def __init__(self, name, age, phone_no, enrolled, subjects, gender):
-        """setting up parameters for information for a student"""
+        """setting up parameters for information for a student & initialse student object with provided details"""
         self.name = name
         self.age = int(age)
         self.phone_no = phone_no
@@ -11,21 +18,19 @@ class Student:
         self.subjects = subjects.split(',')
         self.gender = gender
 
-    #def __str__(self):
-        
-    #return f"{self.name}, {self.age}, {self.phone_no}, {'Enrolled' if self.enrolled else 'Not Enrolled'}, {', '.join(self.subjects)}, {self.gender}"
-
-
+    
     def get_info(self):
-        return{"Name": self.name,
-               "Age": self.age,
-               "Phone": self.phone_no,
-               "Enrolled": "Enrolled" if self.enrolled else "Not Enrolled",
-               "Subjects": self.subjects,
-               "Gender": self.gender
-               }
+        """Return a formatted string of a student's details"""
+        
+        return(f"Name: {self.name}\n"
+               f"Age: {self.age}\n"
+               f"Phone: {self.phone_no}\n"
+               f"Enrolled: {'Enrolled' if self.enrolled else 'Not Enrolled'}\n"
+               f"Subjects: {','.join(self.subjects)}\n"
+               f"Gender: {self.gender}\n"
+                )
 
-#dictionary of students and associated info        
+#dictionary of students and associated info mapped by name        
 students = {
     "Serina Boone": Student("Serina Boone", 15, "0225613607", "True", "ENG,GRA,MAT,ART,DTC", "Female"),
     "Shay Buck": Student("Shay Buck", 16, "0227668033", "True", "BIO,PHY,MAT,DTC,GRA", "Female"),
@@ -37,7 +42,12 @@ students = {
     "Hedy Holland": Student ("Hedy Holland",13, "0221264677", "True", "DTC,MAT,PHY,ENG,ART","Female"),
     "Ralph Bean": Student ("Ralph Bean",18,"0218800806","True","ART,ENG,MAT,DTC,GRA","Male"),
     "Mercedes Roth": Student("Mercedes Roth",15,"0228887184","True","MAT,DTC,ART,GRA,ENG","Female")
-    }
+    
+}
+
+
+class StudentGUI:
+    """Setting up GUI structure to manage student records"""
 
 class StudentGUI:
   """Set up and display of info in GUI interface""""
