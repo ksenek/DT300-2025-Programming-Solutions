@@ -45,13 +45,38 @@ students = {
     
 }
 
-
 class StudentGUI:
     """Setting up GUI structure to manage student records"""
+    
+  
+    def __init__(self, root):
+        """intialise GUI components & layout with parameters"""
+        
+        self.root = root
+        self.root.title("Student Management")
+        self.root.geometry("400x450+200+200")
 
-class StudentGUI:
-  """Set up and display of info in GUI interface""""
+        #entry input & label
+        self.entry_label = Label(root, text="Enter input:")
+        self.entry_label.pack()
+        self.entry_box = Entry(root)
+        self.entry_box.pack()
 
-  #entry boxes, labels, buttons etc.
+        #output display area
+        self.output_label = Label(root, text="Output:")
+        self.output_label.pack()
+        self.output_text = Text(root, height=10, width=50)
+        self.output_text.pack()
 
-  #structures to carry out functions to get info on students, display selected info and search
+        #buttons for functionality
+        self.btn1 = Button(root, text="Show Students Above Age", command=self.show_students_above_age)
+        self.btn1.pack(pady=5)
+        self.btn2 = Button(root, text="Count Students in Subject", command=self.count_students_in_subject)
+        self.btn2.pack(pady=5)
+        self.btn3 = Button(root, text="Search Student", command=self.search_student)
+        self.btn3.pack(pady=5)
+        self.btn4 = Button(root, text="Add Student", command=self.add_student)
+        self.btn4.pack(pady=5)
+        self.btn5 = Button(root, text="Delete Student", command=self.delete_student)
+        self.btn5.pack(pady=5)
+
