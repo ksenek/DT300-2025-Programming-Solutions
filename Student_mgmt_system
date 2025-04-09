@@ -45,10 +45,10 @@ students = {
     
 }
 
+
 class StudentGUI:
     """Setting up GUI structure to manage student records"""
     
-  
     def __init__(self, root):
         """intialise GUI components & layout with parameters"""
         
@@ -80,3 +80,95 @@ class StudentGUI:
         self.btn5 = Button(root, text="Delete Student", command=self.delete_student)
         self.btn5.pack(pady=5)
 
+    def get_entry(self):
+        """getand return user input from entry field"""
+        
+        return self.entry_box.get().strip()
+    
+    def show_output(self, text):
+        """Display text in output area with parameters"""
+        
+        self.output_text.delete("1.0", END) # clears the text box before adding new text(start at line 1, character 0 (the very beginning of the text box))END refers to the end of the current content in the widget.
+        self.output_text.insert(END, text)
+
+    def show_students_above_age(self):
+        """Shows students and their info if they are older than an age entered by the user"""
+
+        try:
+            age = int(self.get_entry())
+            results = [str(student.get_info()) for student in students.values() if student.age >= age]
+            self.show_output("\n".join(results) if results else "No students found.")
+        except ValueError:
+            self.show_output("Please enter a valid age.")
+
+    def count_students_in_subject(self):
+        """Counts how many students are enrolled in a specific subject entered by the user & displays result"""
+
+        subject = self.get_entry().upper()
+        if subject:
+            count = 0
+            for student in students.values():
+                if subject in student.subjects:
+                    count += 1
+            self.show_output(f"{count} students are enrolled in {subject}.")
+        else:
+            self.show_output("Please enter a subject.")
+
+
+    def search_student(self):
+        """Search for a student by name and display their information"""
+        
+        name = self.get_entry().title()
+        student = students.get(name, None)
+        self.show_output(str(student.get_info()) if student else "Student not found.")
+
+    def add_student(self):
+        """Allows a user to add a student and their info to the system"""
+        input_data = self.get_entry().strip()
+        parts = [p.strip() for p in input_data.split(',')]
+
+        if len(parts) < 6:  # Ensure we have at least 6 values
+            self.show_output("Enter data in format: Name,Age,Phone,Enrolled,Subjects,Gender")
+            return
+
+        # Rebuild name until we reach the age field
+        name_parts = []
+        while parts and not parts[0].isdigit():  # Keep taking parts until we find Age
+            name_parts.append(parts.pop(0))
+        name = " ".join(name_parts)  # Reconstruct full name
+
+        if not parts:  # Ensure we still have data left
+            self.show_output("Invalid input format. Missing age or other fields.")
+            return
+
+        # Extract remaining data
+        age = parts.pop(0)
+        if not age.isdigit():
+            self.show_output("Age must be a number.")
+            return
+
+        phone = parts.pop(0)
+        enrolled = parts.pop(0).lower() in ["true", "yes", "1"]
+        gender = parts.pop(-1).title()  # Last value should be gender
+        subjects = ",".join(parts).upper()  # Remaining are subjects
+
+        #add to dictionary
+        students[name] = Student(name, int(age), phone, enrolled, subjects, gender)
+        self.show_output(f"Student {name} added successfully!")
+
+
+    def delete_student(self):
+        """Allows a user to delete a student and their info in the system by referencing student name"""
+
+        name = self.get_entry().title()
+        if name in students:
+            del students[name]
+            self.show_output("Student deleted successfully!")
+        else:
+            self.show_output("Student not found!")
+            
+
+if __name__ == "__main__":
+    root = Tk()
+    app = StudentGUI(root)
+    root.mainloop()
